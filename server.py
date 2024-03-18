@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 import csv
 
 app = Flask(__name__)
-print(__name__)
+
 
 @app.route("/")
 def my_home():
@@ -30,13 +30,9 @@ def write_to_csv(data):
 @app.route('/submit_form', methods=['POST', 'GET'])
 def submit_form():    
     if request.method == "POST":
-        try:
-            data = request.form.to_dict()
-            write_to_csv(data)
-            return redirect("/thank_you.html")
-        except:
-            return "Did not save to database. Something went wrong"
-            
+        data = request.form.to_dict()
+        write_to_csv(data)
+        return redirect("/thank_you.html")
     else:
         return "something went wrong"
 
