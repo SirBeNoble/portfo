@@ -13,14 +13,14 @@ def html_page(page_name):
     return render_template(page_name)
 
 def write_to_file(data):
-    with open('./Web_Server/database.txt', mode='a') as database:
+    with open('database.txt', mode='a') as database:
         email = data["email"]
         subject = data["subject"]
         message = data["message"]
         file = database.write(f"\n{email}, {subject}, {message}")
         
 def write_to_csv(data):
-    with open('./Web_Server/database.csv',newline='', mode='a') as database2:
+    with open('database.csv',newline='', mode='a') as database2:
         email = data["email"]
         subject = data["subject"]
         message = data["message"]
@@ -31,12 +31,12 @@ def write_to_csv(data):
 def submit_form():    
     if request.method == "POST":
         try:
-            
             data = request.form.to_dict()
             write_to_csv(data)
             return redirect("/thank_you.html")
-        except: 
-            return "Did not save to database"
+        except:
+            return "Did not save to database. Something went wrong"
+            
     else:
         return "something went wrong"
 
